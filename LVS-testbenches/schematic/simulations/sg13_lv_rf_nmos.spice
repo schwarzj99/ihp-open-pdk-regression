@@ -1,0 +1,6 @@
+** sch_path: /foss/designs/ihp-open-pdk-regression/LVS-testbenches/xschem/sg13_lv_rf_nmos.sch
+.subckt sg13_lv_rf_nmos D G S B lvs_model w l ng m
+
+*.PININFO D:B S:B G:B B:B
+MM1 D G S B rfnmos w=1.0u l=0.72u ng=1
+.ends
