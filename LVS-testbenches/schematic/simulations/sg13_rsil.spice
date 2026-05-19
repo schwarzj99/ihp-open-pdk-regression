@@ -1,0 +1,5 @@
+** sch_path: /foss/designs/ihp-open-pdk-regression/LVS-testbenches/schematic/sg13_rsil.sch
+.subckt sg13_rsil R0 R1
+*.PININFO R0:B R1:B
+RR1 R0 R1 24.86 $SUB=sub! $[rsil] w=0.5e-6 l=0.5e-6
+.ends

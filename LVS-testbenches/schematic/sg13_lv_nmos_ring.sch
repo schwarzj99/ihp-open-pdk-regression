@@ -11,22 +11,23 @@ N 320 -250 340 -250 {lab=G}
 N 380 -300 380 -280 {lab=D}
 N 480 -180 480 -160 {lab=B}
 N 480 -250 480 -240 {lab=#net1}
-C {devices/title.sym} 160 -30 0 0 {name=l5 author="Copyright Julian Schwarz 2026"}
+C {devices/title.sym} 160 -30 0 0 {name=l5 author="Julian Schwarz 2026"}
+C {sg13g2_pr/sg13_lv_nmos.sym} 360 -250 0 0 {name=M1
+l=0.13u
+w=0.15u
+ng=1
+m=1
+model=sg13_lv_nmos
+spiceprefix=X
+}
 C {iopin.sym} 380 -300 3 0 {name=p1 lab=D}
 C {iopin.sym} 380 -200 1 0 {name=p2 lab=S}
 C {iopin.sym} 320 -250 2 0 {name=p3 lab=G}
 C {iopin.sym} 480 -160 1 0 {name=p4 lab=B}
-C {sg13g2_pr/ptap1.sym} 480 -210 2 1 {name=R1
+C {sg13g2_pr/ptap1_ring.sym} 480 -210 2 1 {name=R1
 model=ptap1
 spiceprefix=X
-w=0.78e-6
-l=0.78e-6
-}
-C {sg13g2_pr/sg13_hv_nmos.sym} 360 -250 0 0 {name=M1
-l=0.45u
-w=0.3u
-ng=1
-m=1
-model=sg13_hv_nmos
-spiceprefix=X
+w=2.87e-6
+l=2.51e-6
+rw=0.3e-6
 }
