@@ -21,6 +21,7 @@ model=ntap1
 spiceprefix=X
 w=0.78e-6
 l=0.78e-6
+lvs_ignore=short
 }
 C {sg13g2_pr/sg13_hv_pmos.sym} 360 -250 2 1 {name=M2
 l=0.4u

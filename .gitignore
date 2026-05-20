@@ -1,0 +1,8 @@
+maketest
+LVS-testbenches/netlist
+LVS-testbenches/verification
+LVS-testbenches/gds/drc*
+LVS-testbenches/gds/lvs*
+LVS-testbenches/gds/backups
+LVS-testbenches/schematic/simulations
+LVS-testbenches/MakefileV0

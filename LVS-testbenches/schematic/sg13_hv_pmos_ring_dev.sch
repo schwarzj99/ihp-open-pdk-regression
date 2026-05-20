@@ -30,4 +30,5 @@ spiceprefix=X
 w=4.32e-6
 l=3.54e-6
 rw=0.3e-6
+lvs_ignore=short
 }

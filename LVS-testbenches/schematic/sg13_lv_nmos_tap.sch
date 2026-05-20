@@ -29,4 +29,4 @@ model=ptap1
 spiceprefix=X
 w=0.78e-6
 l=0.78e-6
-}
+lvs_ignore=short}
