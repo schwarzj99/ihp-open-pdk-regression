@@ -144,10 +144,10 @@ klayout-drc: ## Run KLayout DRC of the CELL cell (usage: make klayout-drc [CELL=
 		--topcell=$(CELL) \
 		--run_dir=$(DRC_RPT_DIR) \
 		--no_feol \
-		--no_density \
-		--disable_extra_rules \
-		--mp=32 \
-		--density_thr=32
+		--no_density
+		#--disable_extra_rules \
+#		--table=all \
+#		--run_mode="deep"
 .PHONY: klayout-drc
 
 magic-drc: ## Run Magic DRC of the CELL cell (usage: make magic-drc [CELL=<cellname>])

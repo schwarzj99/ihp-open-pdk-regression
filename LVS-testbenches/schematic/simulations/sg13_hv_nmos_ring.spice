@@ -1,6 +1,0 @@
-** sch_path: /foss/designs/ihp-open-pdk-regression/LVS-testbenches/schematic/sg13_hv_nmos_ring.sch
-.subckt sg13_hv_nmos_ring D S G B
-*.PININFO D:B S:B G:B B:B
-MM1 D G S net1 sg13_hv_nmos w=0.3u l=0.45u ng=1
-RR1 B net1 ptap1 A=3.846e-12 P=2.564e-05
-.ends
