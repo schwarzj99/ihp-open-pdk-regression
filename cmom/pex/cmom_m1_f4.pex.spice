@@ -1,0 +1,9 @@
+* PEX produced on Mon Jul  6 05:15:29 PM CEST 2026 using /foss/designs/sak/sak-pex.sh with m=3 and s=1 (extresist threshold=10000 mOhm, minres=1000 mOhm, mindelay=0 ps)
+* NGSPICE file created from cmom_m1_f4.ext - technology: ihp-sg13g2
+
+.subckt cmom_m1_f4 A B
+C0 A B 1.80493f
+C1 B w_n32_n576# 0.23931f
+C2 A w_n32_n576# 0.313f
+.ends
+

@@ -1,0 +1,48 @@
+Makes the isolbox n-tub (deep-nwell) node contactable and labelable in the
+SG13G2 KLayout LVS deck.
+
+Problem: the isolbox PCell paints Recog/diode (99/31) over the whole NWell ring.
+Both tap derivations subtract that layer --
+
+    ntap         = nactiv.and(nwell_drw).not(ntap1_mk).not(recog_diode)...   general_derivations.lvs:92
+    taps_exclude = ....join(recog_diode)                                     tap_derivations.lvs:29
+    ntap1_exc    = pwell.join(psd_drw).join(taps_exclude)                    tap_derivations.lvs:33
+
+-- so the ring's Activ+Cont+Metal1 forms no tap, ends up on a device-less net,
+and `simplify` deletes it along with any label on it. The isolbox I terminal is
+then nBuLay-only (no nbulay text layer exists), so it always extracts as an
+anonymous $n net and fails `flag_missing_ports`.
+
+Note --disable_tap_extraction does NOT help: ntap1_tie is already empty on the
+ring before that switch is consulted.
+
+Apply from <pdk>/libs.tech/klayout/tech/lvs/ :
+    patch -p1 < isolbox_tie_lvs.patch
+
+Verified on sg13_dnwell_inv.gds (layout UNMODIFIED) with and without
+--disable_tap_extraction: PASS in strict port mode, tub extracts as VDD,
+port list becomes "D G S VDD VSS". The 4 unit/diode_devices testcases
+(isolbox, dantenna, dpantenna, schottky_nbl1) pass identically before and after.
+The full regression suite has NOT been run.
+
+--- a/rule_decks/diode_derivations.lvs
++++ b/rule_decks/diode_derivations.lvs
+@@ -74,6 +74,9 @@
+ isolbox_i = nbulay_drw.not(iso_pwell).interacting(isolbox_recog)
+ isolbox_bn = pwell_sub.not(iso_pwell).interacting(isolbox_recog)
+
++# Isolbox n-tub tie: the n+ ring sitting inside the isolbox NWell ring.
++isolbox_tie = nact_nwell.and(recog_diode).interacting(isolbox_recog)
++
+ # ==== dantenna diode ====
+ dantenna_n = antenna_d_mk.and(activ).not(psd_drw).not(nwell_drw)
+ dantenna_p = antenna_d_mk.and(pwell).covering(dantenna_n)
+--- a/rule_decks/diode_connections.lvs
++++ b/rule_decks/diode_connections.lvs
+@@ -41,4 +41,6 @@
+ # isolbox diode
+ connect(isolbox_s, pwell)
+ connect(isolbox_i, nbulay_drw)
++connect(isolbox_i, isolbox_tie)
++connect(isolbox_tie, cont_drw)
+ connect(isolbox_bn, pwell_sub)

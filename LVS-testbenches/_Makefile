@@ -1,0 +1,107 @@
+# Makefile for an Open-Source Analog-Mixed Signal Chip Design Template for the ihp-sg13g2 Open-PDK.
+#
+# SPDX-FileCopyrightText: 2026 Simon Dorrer and Harald Pretl
+# Johannes Kepler University, Department for Integrated Circuits
+# SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+# ========================================================================
+
+MAKEFILE_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+
+.DEFAULT_GOAL := help
+
+# Cell name for verification targets (default: top-level cell)
+# Override with: make <target> CELL=<cellname>
+CELL ?= sg13_lv_nmos_tap
+
+# Floating-point precision (significant digits) for Xschem's ev function
+# Override with: make <target> EV_PRECISION=<digits>
+EV_PRECISION ?= 5
+
+# Help Target
+help: ## Show this help message
+	@echo 'Usage: make <target> [CELL=<cellname>] [EV_PRECISION=<digits>] [VERSION=<version>]'
+	@echo ''
+	@echo 'Available targets:'
+	@grep -E '^[a-zA-Z0-9_.-]+:.*## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  %-20s %s\n", $$1, $$2}'
+	@echo ''
+	@echo 'CELL defaults to $(TOP). Override to verify subcells.'
+	@echo 'EV_PRECISION defaults to 5 significant digits for Xschem ev function.'
+	@echo 'VERSION defaults to $(VERSION). Used by the release target.'
+.PHONY: help
+# ================================================================================================
+
+# LVS Targets
+klayout-lvs-netlist: ## Export CDL netlist from Xschem for KLayout LVS (usage: make klayout-lvs-netlist [CELL=<cellname>] [EV_PRECISION=<digits>])
+	python3 run_regression.py --tools klayout-lvs-netlist --cell $(CELL) --ev-precision $(EV_PRECISION)
+.PHONY: klayout-lvs-netlist
+
+klayout-lvs: ## Run KLayout LVS of the CELL cell (usage: make klayout-lvs [CELL=<cellname>])
+	python3 run_regression.py --tools klayout-lvs --cell $(CELL)
+.PHONY: klayout-lvs
+
+magic-lvs-netlist: ## Export SPICE netlist from Xschem for Magic + Netgen LVS (usage: make magic-lvs-netlist [CELL=<cellname>] [EV_PRECISION=<digits>])
+	python3 run_regression.py --tools magic-lvs-netlist --cell $(CELL) --ev-precision $(EV_PRECISION)
+.PHONY: magic-lvs-netlist
+
+magic-lvs: ## Run Magic + Netgen LVS of the CELL cell (usage: make magic-lvs [CELL=<cellname>])
+	python3 run_regression.py --tools magic-lvs --cell $(CELL)
+.PHONY: magic-lvs
+
+lvs: ## Run KLayout and Magic LVS of the CELL cell (usage: make lvs [CELL=<cellname>])
+	python3 run_regression.py --tools klayout-lvs magic-lvs --cell $(CELL)
+.PHONY: lvs
+
+klayout-lvs-regression: ## Run klayout-lvs for every .gds in $(LAY_DIR)/
+	python3 run_regression.py --tools klayout-lvs
+.PHONY: klayout-lvs-regression
+# ================================================================================================
+
+
+# DRC Targets
+klayout-drc: ## Run KLayout DRC of the CELL cell (usage: make klayout-drc [CELL=<cellname>])
+	python3 run_regression.py --tools klayout-drc --cell $(CELL)
+.PHONY: klayout-drc
+
+magic-drc: ## Run Magic DRC of the CELL cell (usage: make magic-drc [CELL=<cellname>])
+	python3 run_regression.py --tools magic-drc --cell $(CELL)
+.PHONY: magic-drc
+# ================================================================================================
+
+
+# Verify Targets
+klayout-verify: ## Verify CELL cell with KLayout LVS + DRC (usage: make klayout-verify [CELL=<cellname>])
+	python3 run_regression.py --tools klayout-lvs klayout-drc --cell $(CELL)
+.PHONY: klayout-verify
+
+magic-verify: ## Verify CELL cell with Magic LVS + DRC (usage: make magic-verify [CELL=<cellname>])
+	python3 run_regression.py --tools magic-lvs magic-drc --cell $(CELL)
+.PHONY: magic-verify
+
+verify: ## Verify CELL cell with all tools (usage: make verify [CELL=<cellname>])
+	python3 run_regression.py --tools klayout-lvs klayout-drc magic-lvs magic-drc --cell $(CELL)
+.PHONY: verify
+
+verify1: ## Verify CELL cell with KLayout LVS + Magic DRC (usage: make verify1 [CELL=<cellname>])
+	python3 run_regression.py --tools klayout-lvs magic-drc --cell $(CELL)
+.PHONY: verify1
+# ================================================================================================
+
+
+# Regression Targets - auto-run over all .gds files in $(LAY_DIR)/
+
+regression1: ## Run verify1 (klayout-lvs + magic-drc) for every .gds in $(LAY_DIR)/ (semi-fast mode)
+	python3 run_regression.py --tools klayout-lvs magic-drc
+.PHONY: regression1
+
+regression-klayout: ## Run klayout-verify (klayout-lvs + klayout-drc) for every .gds in $(LAY_DIR)/
+	python3 run_regression.py --tools klayout-lvs klayout-drc
+.PHONY: regression-klayout
+
+regression-magic: ## Run magic-verify (magic-lvs + magic-drc) for every .gds in $(LAY_DIR)/
+	python3 run_regression.py --tools magic-lvs magic-drc
+.PHONY: regression-magic
+
+regression: ## Run full verify (klayout-verify + magic-verify) for every .gds in $(LAY_DIR)/
+	python3 run_regression.py --tools klayout-lvs klayout-drc magic-lvs magic-drc
+.PHONY: regression
+# ================================================================================================

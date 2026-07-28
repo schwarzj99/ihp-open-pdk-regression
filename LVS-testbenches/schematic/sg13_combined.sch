@@ -206,7 +206,7 @@ C {sg13g2_pr/rsil.sym} 850 50 0 0 {name=R1
 w=0.5e-6
 l=0.5e-6
 model=rsil
-body=psub
+body="tcleval([expr \\\{$lvs_ignore ? \\\{VSS\\\} : \\\{psub\\\}\\\}])"
 spiceprefix=X
 m=1
 value="expr_eng(  ( 9.0e-6 / @w + 7.0 * ( @l ) / ( @w + 1.0e-8 ) ) / @m  )"
@@ -215,7 +215,7 @@ C {sg13g2_pr/rppd.sym} 850 -30 0 0 {name=R2
 w=0.5e-6
 l=0.5e-6
 model=rppd
-body=psub
+body="tcleval([expr \\\{$lvs_ignore ? \\\{VSS\\\} : \\\{psub\\\}\\\}])"
 spiceprefix=X
 b=0
 m=1
@@ -225,7 +225,7 @@ C {sg13g2_pr/rhigh.sym} 850 -110 0 0 {name=R3
 w=0.5e-6
 l=0.96e-6
 model=rhigh
-body=psub
+body="tcleval([expr \\\{$lvs_ignore ? \\\{VSS\\\} : \\\{psub\\\}\\\}])"
 spiceprefix=X
 b=0
 m=1
@@ -251,12 +251,4 @@ C {lab_pin.sym} 1030 -330 1 0 {name=p6 sig_type=std_logic lab=VDD}
 C {lab_pin.sym} 1030 110 3 0 {name=p5 sig_type=std_logic lab=VSS}
 C {lab_pin.sym} 850 200 3 0 {name=p11 sig_type=std_logic lab=VSS
 }
-C {lab_wire.sym} 1140 0 0 0 {name=p9 sig_type=std_logic lab=psub}
-C {sg13g2_pr/cap_rfcmim.sym} 850 -270 0 0 {name=C2 
-model=cap_rfcmim
-lvs_model=rfcmim
-w=7.0e-6
-l=7.0e-6
-wfeed=3.0e-6
-spiceprefix=X}
-C {lab_pin.sym} 820 -270 0 0 {name=p8 sig_type=std_logic lab=VSS}
+C {lab_wire.sym} 1140 0 0 0 {name=p9 sig_type=std_logic lab="tcleval([expr \\\{$lvs_ignore ? \\\{VSS\\\} : \\\{psub\\\}\\\}])"}

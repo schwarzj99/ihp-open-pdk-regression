@@ -14,6 +14,7 @@ C {sg13g2_pr/rsil.sym} 440 -210 0 0 {name=R1
 w=0.5e-6
 l=0.5e-6
 model=rsil
+body=sub!
 spiceprefix=X
 m=1
 value="expr_eng(  ( 9.0e-6 / @w + 7.0 * ( @l ) / ( @w + 1.0e-8 ) ) / @m  )"

@@ -95,13 +95,13 @@ magic-lvs: ## Run Magic + Netgen LVS of the CELL cell (usage: make magic-lvs [CE
 	mkdir -p $(LVS_RPT_DIR)
 	mkdir -p $(NET_LAY_DIR)
 	$(MAKE) magic-lvs-netlist CELL=$(CELL)
-	sak-lvs.sh -d -w $(LVS_RPT_DIR) -s $(NET_SCH_DIR)/$(CELL)_magic.spice -l $(LAY_DIR)/$(CELL).gds -c $(CELL)
+#	sak-lvs.sh -d -w $(LVS_RPT_DIR) -s $(NET_SCH_DIR)/$(CELL)_magic.spice -l $(LAY_DIR)/$(CELL).gds -c $(CELL)
 # 	Alternative using sak-lvs.sh for netlist export and LVS in one step (replaces magic-lvs-netlist target):
-#   sak-lvs.sh -d -w $(LVS_RPT_DIR) -s $(XSCHEM_SCH_DIR)/$(CELL).sch -l $(LAY_DIR)/$(CELL).gds.gz -c $(CELL)
+	sak-lvs.sh -d -w $(LVS_RPT_DIR) -s $(XSCHEM_SCH_DIR)/$(CELL).sch -l $(LAY_DIR)/$(CELL).gds -c $(CELL)
 	mv $(LVS_RPT_DIR)/$(CELL).ext.spc $(NET_LAY_DIR)/$(CELL)_magic.ext.spc
-	rm -f $(LVS_RPT_DIR)/$(CELL).sch.spc
-	rm -f $(LVS_RPT_DIR)/ext_$(CELL).tcl
-	rm -f $(LVS_RPT_DIR)/*.ext
+#	rm -f $(LVS_RPT_DIR)/$(CELL).sch.spc
+#	rm -f $(LVS_RPT_DIR)/ext_$(CELL).tcl
+#	rm -f $(LVS_RPT_DIR)/*.ext
 .PHONY: magic-lvs
 
 lvs: ## Run KLayout and Magic LVS of the CELL cell (usage: make lvs [CELL=<cellname>])
@@ -188,7 +188,7 @@ regression1: ## Run verify1 (klayout-lvs + magic-drc) for every .gds in $(LAY_DI
 	for cell in $(GDS_CELLS); do \
 		echo "[REGRESSION] Running verify1 for: $$cell"; \
 		cell_tools=""; \
-		$(MAKE) magic-lvs CELL=$$cell || cell_tools="$${cell_tools:+$$cell_tools, }MAGIC-LVS"; \
+		$(MAKE) klayout-lvs CELL=$$cell || cell_tools="$${cell_tools:+$$cell_tools, }KLAYOUT-LVS"; \
 		$(MAKE) magic-drc CELL=$$cell || cell_tools="$${cell_tools:+$$cell_tools, }MAGIC-DRC"; \
 		if [ -n "$$cell_tools" ]; then \
 			echo "[REGRESSION] FAILED: $$cell ($$cell_tools)"; \

@@ -6,3 +6,8 @@ LVS-testbenches/gds/backups
 LVS-testbenches/schematic/simulations
 LVS-testbenches/MakefileV0
 LVS-testbenches/unit
+*/layout/backups
+*/layout/lvs_run*
+*/layout/drc_run*
+*/schematic/simulations
+*/testbench/simulations
