@@ -1,0 +1,33 @@
+* sg13g2_LevelDown, reconstructed from the layout.
+*
+* The shipped netlist describes 4 transistors; the layout has 8. It models a
+* single hv inverter feeding a single lv inverter, and its surviving hv pmos
+* width is wrong too (4.65u vs 4.6u). This is the real cell:
+*
+*   pad -[rppd ~794 ohm, in SecondaryProtection, clamped by 2 diodes]-> padres
+*   padres -> hv inverter 1 -> n1
+*   n1     -> hv inverter 2 -> n2          (n1, n2 are complementary, IO domain)
+*   n1/n2  -> two stacked hv nmos between vdd and vss -> mid
+*   mid    -> lv inverter -> core
+*
+* The stacked-nmos stage is the level-down trick: Mn_pu pulls mid up to vdd
+* (1.2V) but its gate is driven by n1, which swings to iovdd (3.3V). The ~2.1V
+* of overdrive means it passes a full core-level high with no Vth drop, which
+* an nmos pull-up could not otherwise do. Gates are complementary, so the two
+* never conduct at once.
+*
+* Widths, lengths and tap A/P are all read back from the extraction.
+
+.subckt sg13g2_LevelDown vdd vss iovdd iovss pad core
+Xsecondprot iovdd iovss pad padres sg13g2_SecondaryProtection
+Mn_inv1 n1 padres iovss sub sg13_hv_nmos L=0.45u W=1.3u
+Mp_inv1 iovdd padres n1 iovdd sg13_hv_pmos L=0.45u W=4.6u
+Mn_inv2 iovss n1 n2 sub sg13_hv_nmos L=0.45u W=1.3u
+Mp_inv2 iovdd n1 n2 iovdd sg13_hv_pmos L=0.45u W=4.6u
+Mn_pd vss n2 mid sub sg13_hv_nmos L=0.45u W=2.65u
+Mn_pu mid n1 vdd sub sg13_hv_nmos L=0.45u W=2.65u
+Mn_core core mid vss sub sg13_lv_nmos L=0.13u W=2.75u
+Mp_core core mid vdd vdd sg13_lv_pmos L=0.13u W=4.75u
+Rtap0 iovss sub ptap1 A=0.804p P=5.96u
+Rtap1 vss sub ptap1 A=2.019p P=14.06u
+.ends sg13g2_LevelDown

@@ -1,0 +1,68 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 03/08/2026 14:11
+
+.SUBCKT sg13g2_IOPadTriOut16mA anode|cathode|pad anode|guard|iovss c2p|core|i0
++ c2p_en|en|i|i1 cathode|iovdd gate|ngate|o gate|o|pgate i|nq i|nq$1 i1|nq
++ iovdd vdd vss
+M$1 vss c2p_en|en|i|i1 i1|nq \$1 sg13_lv_nmos L=0.13u W=3.93u AS=1.3362p
++ AD=1.3362p PS=8.54u PD=8.54u rfmode=0
+M$2 \$27 i|nq vss \$1 sg13_lv_nmos L=0.13u W=2.75u AS=0.935p AD=0.935p PS=6.18u
++ PD=6.18u rfmode=0
+M$3 vss c2p|core|i0 \$40 \$1 sg13_lv_nmos L=0.13u W=3.93u AS=1.3362p AD=0.7467p
++ PS=8.54u PD=4.31u rfmode=0
+M$4 \$40 c2p_en|en|i|i1 i|nq$1 \$1 sg13_lv_nmos L=0.13u W=3.93u AS=0.7467p
++ AD=1.4148p PS=4.31u PD=8.58u rfmode=0
+M$5 \$29 i|nq$1 vss \$1 sg13_lv_nmos L=0.13u W=2.75u AS=0.935p AD=0.935p
++ PS=6.18u PD=6.18u rfmode=0
+M$6 vss c2p|core|i0 i|nq \$1 sg13_lv_nmos L=0.13u W=3.93u AS=1.3362p AD=0.7467p
++ PS=8.54u PD=4.31u rfmode=0
+M$7 i|nq i1|nq vss \$1 sg13_lv_nmos L=0.13u W=3.93u AS=0.7467p AD=1.4148p
++ PS=4.31u PD=8.58u rfmode=0
+M$8 vss \$23 gate|ngate|o \$1 sg13_hv_nmos L=0.45u W=1.9u AS=0.646p AD=0.646p
++ PS=4.48u PD=4.48u rfmode=0
+M$9 \$22 \$27 vss \$1 sg13_hv_nmos L=0.45u W=1.9u AS=0.646p AD=0.361p PS=4.48u
++ PD=2.28u rfmode=0
+M$10 vss i|nq \$23 \$1 sg13_hv_nmos L=0.45u W=1.9u AS=0.361p AD=0.646p PS=2.28u
++ PD=4.48u rfmode=0
+M$11 anode|guard|iovss gate|ngate|o anode|cathode|pad \$1 sg13_hv_nmos L=0.6u
++ W=35.2u AS=16.676p AD=16.676p PS=47.18u PD=47.18u rfmode=0
+M$19 \$25 \$29 vss \$1 sg13_hv_nmos L=0.45u W=1.9u AS=0.646p AD=0.361p PS=4.48u
++ PD=2.28u rfmode=0
+M$20 vss i|nq$1 \$26 \$1 sg13_hv_nmos L=0.45u W=1.9u AS=0.361p AD=0.646p
++ PS=2.28u PD=4.48u rfmode=0
+M$21 vss \$26 gate|o|pgate \$1 sg13_hv_nmos L=0.45u W=1.9u AS=0.646p AD=0.646p
++ PS=4.48u PD=4.48u rfmode=0
+M$22 vdd c2p_en|en|i|i1 i1|nq vdd sg13_lv_pmos L=0.13u W=4.41u AS=1.4994p
++ AD=1.4994p PS=9.5u PD=9.5u rfmode=0
+M$23 vdd c2p|core|i0 i|nq$1 vdd sg13_lv_pmos L=0.13u W=4.41u AS=1.4994p
++ AD=0.8379p PS=9.5u PD=4.79u rfmode=0
+M$24 i|nq$1 c2p_en|en|i|i1 vdd vdd sg13_lv_pmos L=0.13u W=4.41u AS=0.8379p
++ AD=1.5876p PS=4.79u PD=9.54u rfmode=0
+M$25 vdd c2p|core|i0 \$41 vdd sg13_lv_pmos L=0.13u W=4.41u AS=1.4994p
++ AD=0.8379p PS=9.5u PD=4.79u rfmode=0
+M$26 \$41 i1|nq i|nq vdd sg13_lv_pmos L=0.13u W=4.41u AS=0.8379p AD=1.5876p
++ PS=4.79u PD=9.54u rfmode=0
+M$27 \$29 i|nq$1 vdd vdd sg13_lv_pmos L=0.13u W=4.75u AS=1.615p AD=1.615p
++ PS=10.18u PD=10.18u rfmode=0
+M$28 \$27 i|nq vdd vdd sg13_lv_pmos L=0.13u W=4.75u AS=1.615p AD=1.615p
++ PS=10.18u PD=10.18u rfmode=0
+M$29 cathode|iovdd gate|o|pgate anode|cathode|pad cathode|iovdd sg13_hv_pmos
++ L=0.6u W=106.56u AS=50.4828p AD=50.4828p PS=135.04u PD=135.04u rfmode=0
+M$45 \$25 \$26 iovdd iovdd sg13_hv_pmos L=0.45u W=0.3u AS=0.102p AD=0.057p
++ PS=1.28u PD=0.68u rfmode=0
+M$46 iovdd \$25 \$26 iovdd sg13_hv_pmos L=0.45u W=0.3u AS=0.057p AD=0.102p
++ PS=0.68u PD=1.28u rfmode=0
+M$47 iovdd \$26 gate|o|pgate iovdd sg13_hv_pmos L=0.45u W=3.9u AS=1.326p
++ AD=1.326p PS=8.48u PD=8.48u rfmode=0
+M$48 \$22 \$23 iovdd iovdd sg13_hv_pmos L=0.45u W=0.3u AS=0.102p AD=0.057p
++ PS=1.28u PD=0.68u rfmode=0
+M$49 iovdd \$22 \$23 iovdd sg13_hv_pmos L=0.45u W=0.3u AS=0.057p AD=0.102p
++ PS=0.68u PD=1.28u rfmode=0
+M$50 iovdd \$23 gate|ngate|o iovdd sg13_hv_pmos L=0.45u W=3.9u AS=1.326p
++ AD=1.326p PS=8.48u PD=8.48u rfmode=0
+D$51 \$1 anode|cathode|pad dantenna A=35.0028p P=58.08u m=2
+D$53 \$1 gate|ngate|o dantenna A=0.6084p P=3.12u m=1
+D$54 gate|o|pgate cathode|iovdd dpantenna A=0.2304p P=1.92u m=1
+D$55 anode|cathode|pad cathode|iovdd dpantenna A=35.0028p P=58.08u m=2
+R$57 anode|guard|iovss \$1 ptap1 A=4611.0148p P=1503.14u
+R$60 vss \$1 ptap1 A=26.3625p P=177.55u
+.ENDS sg13g2_IOPadTriOut16mA

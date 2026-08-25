@@ -1,0 +1,34 @@
+* sg13g2_DCNDiode -- PASSES LVS
+*
+* Run (from the container):
+*   run_lvs.py --layout=../layout/sg13g2_io.gds --topcell=sg13g2_DCNDiode \
+*              --netlist=sg13g2_DCNDiode.spi --run_mode=deep \
+*              --implicit_nets='cathode' --combine_devices
+*
+* Three things had to change versus the shipped sg13g2_io.spi:
+*
+* 1. ELEMENT PREFIXES. The shipped netlist writes devices as subcircuit calls
+*    ("Xdcdiode[0] anode cathode dantenna l=1.26um w=27.78um"). KLayout reads
+*    that as a call to a circuit named DANTENNA(L=1.26U,W=27.78U) and the
+*    schematic ends up with ZERO devices. Devices must use real SPICE element
+*    prefixes: D for diodes, M for MOS, R for resistors and taps.
+*
+* 2. THE SUBSTRATE TAP. The guard ring geometry is drawn inside this cell (the
+*    sg13g2_GuardRing_* cells do not exist in the layout at all), so its ptap1
+*    belongs here. A/P are the constants from ../tap_inventory.md.
+*
+* 3. THE 'anode' PIN IS THE SUBSTRATE. dantenna is n-diff to p-substrate, so
+*    the diodes' anode and the tap's WELL terminal are the same net. The pin
+*    named 'anode' in the shipped netlist is that substrate node; the guard
+*    ring tie is a separate net, which the layout confusingly labels 'anode'.
+*
+* --implicit_nets='cathode' joins the two cathode fingers, which are tied
+* together only by metal in the parent cell.
+* --combine_devices merges the two parallel dantenna fingers into the single
+* m=2 device the extractor produces.
+
+.subckt sg13g2_DCNDiode anode cathode
+Dd0 sub cathode dantenna A=35.0028p P=58.08u
+Dd1 sub cathode dantenna A=35.0028p P=58.08u
+Rtap anode sub ptap1 A=141.2964p P=221.76u
+.ends sg13g2_DCNDiode

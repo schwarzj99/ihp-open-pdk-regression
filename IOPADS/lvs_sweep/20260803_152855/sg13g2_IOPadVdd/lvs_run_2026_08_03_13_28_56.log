@@ -1,0 +1,23 @@
+03-Aug-2026 15:28:58 | INFO    | Your Klayout version is: KLayout 0.30.9
+03-Aug-2026 15:28:58 | INFO    | Running SG13CMOS5L LVS checks on design /foss/designs/ihp-open-pdk-regression/IOPADS/layout/sg13g2_IOPadVdd.gds on cell sg13g2_IOPadVdd
+03-Aug-2026 15:29:20 | ERROR   | KLayout run failed with exit code 1.
+03-Aug-2026 15:29:20 | ERROR   | KLayout stderr: ERROR: In /foss/pdks/ihp-sg13cmos5l/libs.tech/klayout/tech/lvs/sg13cmos5l.lvs: CMOS5L forbidden layers detected: Via4 (66/0): 2371 polygons; Metal5 (67/0): 8 polygons; TopVia2 (133/0): 443 polygons; TopMetal2 (134/0): 11 polygons
+03-Aug-2026 15:29:20 | ERROR   | KLayout stderr: ERROR: RuntimeError: CMOS5L forbidden layers detected: Via4 (66/0): 2371 polygons; Metal5 (67/0): 8 polygons; TopVia2 (133/0): 443 polygons; TopMetal2 (134/0): 11 polygons in Executable::execute
+03-Aug-2026 15:29:20 | INFO    | ==============================================================================
+03-Aug-2026 15:29:20 | INFO    | Important Summary
+03-Aug-2026 15:29:20 | INFO    | +------------------+----------------------------------------------------------------------------------------+
+03-Aug-2026 15:29:20 | INFO    | | Status           | FAIL                                                                                   |
+03-Aug-2026 15:29:20 | INFO    | | Mode             | COMPARE                                                                                |
+03-Aug-2026 15:29:20 | INFO    | | Outcome          | Comparison mode: completed (no match/mismatch verdict found).                          |
+03-Aug-2026 15:29:20 | INFO    | | Layout           | sg13g2_IOPadVdd.gds                                                                    |
+03-Aug-2026 15:29:20 | INFO    | | Top Cell         | sg13g2_IOPadVdd                                                                        |
+03-Aug-2026 15:29:20 | INFO    | | Results Dir      | /foss/designs/ihp-open-pdk-regression/IOPADS/lvs_sweep/20260803_152855/sg13g2_IOPadVdd |
+03-Aug-2026 15:29:20 | INFO    | | Warnings         | 0                                                                                      |
+03-Aug-2026 15:29:20 | INFO    | | Errors           | 3                                                                                      |
+03-Aug-2026 15:29:20 | INFO    | | Run Time (s)     | 23.763                                                                                 |
+03-Aug-2026 15:29:20 | INFO    | +------------------+----------------------------------------------------------------------------------------+
+03-Aug-2026 15:29:20 | ERROR   | Key errors:
+03-Aug-2026 15:29:20 | ERROR   |   - KLayout run failed with exit code 1.
+03-Aug-2026 15:29:20 | ERROR   |   - KLayout stderr: ERROR: In /foss/pdks/ihp-sg13cmos5l/libs.tech/klayout/tech/lvs/sg13cmos5l.lvs: CMOS5L forbidden layers detected: Via4 (66/0): 2371 polygons; Metal5 (67/0): 8 polygons; TopVia2 (133/0): 443 polygons; TopMetal2 (134/0): 11 polygons
+03-Aug-2026 15:29:20 | ERROR   |   - KLayout stderr: ERROR: RuntimeError: CMOS5L forbidden layers detected: Via4 (66/0): 2371 polygons; Metal5 (67/0): 8 polygons; TopVia2 (133/0): 443 polygons; TopMetal2 (134/0): 11 polygons in Executable::execute
+03-Aug-2026 15:29:20 | INFO    | ==============================================================================

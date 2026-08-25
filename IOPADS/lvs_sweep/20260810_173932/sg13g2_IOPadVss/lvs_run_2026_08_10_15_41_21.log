@@ -1,0 +1,16 @@
+10-Aug-2026 17:41:21 | INFO    | Your Klayout version is: KLayout 0.30.10 (required >= 0.30.5)
+10-Aug-2026 17:41:21 | INFO    | Running SG13G2 LVS checks on design /foss/designs/ihp-open-pdk-regression/IOPADS/layout/sg13g2_IOPadVss.gds on cell sg13g2_IOPadVss
+10-Aug-2026 17:41:29 | INFO    | ==============================================================================
+10-Aug-2026 17:41:29 | INFO    | Important Summary
+10-Aug-2026 17:41:29 | INFO    | +------------------+----------------------------------------------------------------------------------------+
+10-Aug-2026 17:41:29 | INFO    | | Status           | PASS                                                                                   |
+10-Aug-2026 17:41:29 | INFO    | | Mode             | COMPARE                                                                                |
+10-Aug-2026 17:41:29 | INFO    | | Outcome          | Comparison mode: PASS (netlists match).                                                |
+10-Aug-2026 17:41:29 | INFO    | | Layout           | sg13g2_IOPadVss.gds                                                                    |
+10-Aug-2026 17:41:29 | INFO    | | Top Cell         | sg13g2_IOPadVss                                                                        |
+10-Aug-2026 17:41:29 | INFO    | | Results Dir      | /foss/designs/ihp-open-pdk-regression/IOPADS/lvs_sweep/20260810_173932/sg13g2_IOPadVss |
+10-Aug-2026 17:41:29 | INFO    | | Warnings         | 0                                                                                      |
+10-Aug-2026 17:41:29 | INFO    | | Errors           | 0                                                                                      |
+10-Aug-2026 17:41:29 | INFO    | | Run Time (s)     | 7.909                                                                                  |
+10-Aug-2026 17:41:29 | INFO    | +------------------+----------------------------------------------------------------------------------------+
+10-Aug-2026 17:41:29 | INFO    | ==============================================================================

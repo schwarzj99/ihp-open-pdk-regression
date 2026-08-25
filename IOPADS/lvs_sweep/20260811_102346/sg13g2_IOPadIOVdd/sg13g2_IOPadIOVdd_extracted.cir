@@ -1,0 +1,30 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 11/08/2026 10:24
+
+.SUBCKT sg13g2_IOPadIOVdd iovdd iovss vss
+X$1 \$1 iovss iovdd \$7 sg13g2_Clamp_N43N43D4R
+X$2 \$1 iovdd \$5 sg13g2_RCClampResistor
+X$3 \$1 iovss \$5 \$7 iovdd sg13g2_RCClampInverter
+R$1 iovss \$1 ptap1 A=1997.9154p P=411.58u
+R$2 vss \$1 ptap1 A=24p P=160.6u
+.ENDS sg13g2_IOPadIOVdd
+
+.SUBCKT sg13g2_RCClampResistor \$1 pin1 pin2
+R$26 pin2 pin1 \$1 rppd w=1u l=520u ps=0u b=0 m=1
+.ENDS sg13g2_RCClampResistor
+
+.SUBCKT sg13g2_Clamp_N43N43D4R \$2 iovss pad gate
+M$1 iovss gate pad \$2 sg13_hv_nmos L=0.6u W=756.8u AS=344.608p AD=349.36p
++ PS=931.04u PD=933.2u rfmode=0
+D$173 \$2 gate dantenna A=0.2304p P=1.92u m=1
+R$174 iovss \$2 ptap1 A=65.6472p P=386.16u
+.ENDS sg13g2_Clamp_N43N43D4R
+
+.SUBCKT sg13g2_RCClampInverter \$1 iovss in out supply
+M$1 iovss in iovss \$1 sg13_hv_nmos L=9.5u W=126u AS=26.64p AD=23.94p
++ PS=149.92u PD=131.32u rfmode=0
+M$8 iovss in out \$1 sg13_hv_nmos L=0.5u W=108u AS=20.52p AD=23.22p PS=112.56u
++ PD=131.16u rfmode=0
+M$27 supply in out supply sg13_hv_pmos L=0.5u W=350u AS=67.55p AD=67.55p
++ PS=376.3u PD=376.3u rfmode=0
+R$77 iovss \$1 ptap1 A=69.122p P=406.6u
+.ENDS sg13g2_RCClampInverter

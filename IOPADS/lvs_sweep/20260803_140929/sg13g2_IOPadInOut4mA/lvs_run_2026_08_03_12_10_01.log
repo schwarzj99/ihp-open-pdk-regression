@@ -1,0 +1,18 @@
+03-Aug-2026 14:10:02 | INFO    | Your Klayout version is: KLayout 0.30.9 (required >= 0.30.5)
+03-Aug-2026 14:10:02 | INFO    | Running SG13G2 LVS checks on design /foss/designs/ihp-open-pdk-regression/IOPADS/layout/sg13g2_IOPadInOut4mA.gds on cell sg13g2_IOPadInOut4mA
+03-Aug-2026 14:10:10 | INFO    | ==============================================================================
+03-Aug-2026 14:10:10 | INFO    | Important Summary
+03-Aug-2026 14:10:10 | INFO    | +------------------+---------------------------------------------------------------------------------------------+
+03-Aug-2026 14:10:10 | INFO    | | Status           | FAIL                                                                                        |
+03-Aug-2026 14:10:10 | INFO    | | Mode             | COMPARE                                                                                     |
+03-Aug-2026 14:10:10 | INFO    | | Outcome          | Comparison mode: FAIL (netlists do not match).                                              |
+03-Aug-2026 14:10:11 | INFO    | | Layout           | sg13g2_IOPadInOut4mA.gds                                                                    |
+03-Aug-2026 14:10:11 | INFO    | | Top Cell         | sg13g2_IOPadInOut4mA                                                                        |
+03-Aug-2026 14:10:11 | INFO    | | Results Dir      | /foss/designs/ihp-open-pdk-regression/IOPADS/lvs_sweep/20260803_140929/sg13g2_IOPadInOut4mA |
+03-Aug-2026 14:10:11 | INFO    | | Warnings         | 0                                                                                           |
+03-Aug-2026 14:10:11 | INFO    | | Errors           | 1                                                                                           |
+03-Aug-2026 14:10:11 | INFO    | | Run Time (s)     | 8.997                                                                                       |
+03-Aug-2026 14:10:11 | INFO    | +------------------+---------------------------------------------------------------------------------------------+
+03-Aug-2026 14:10:11 | ERROR   | Key errors:
+03-Aug-2026 14:10:11 | ERROR   |   - 2026-08-03 14:10:10 +0200: Memory Usage (483416K) : ERROR : Netlists don't match
+03-Aug-2026 14:10:11 | INFO    | ==============================================================================

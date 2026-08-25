@@ -1,0 +1,8 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 03/08/2026 14:10
+
+.SUBCKT sg13g2_IOPadIOVss anode|cathode|guard|iovss cathode|iovdd vss
+D$1 \$1 anode|cathode|guard|iovss dantenna A=35.0028p P=58.08u m=2
+D$3 anode|cathode|guard|iovss cathode|iovdd dpantenna A=35.0028p P=58.08u m=2
+R$5 anode|cathode|guard|iovss \$1 ptap1 A=5548.3964p P=925.24u
+R$7 vss \$1 ptap1 A=24p P=160.6u
+.ENDS sg13g2_IOPadIOVss

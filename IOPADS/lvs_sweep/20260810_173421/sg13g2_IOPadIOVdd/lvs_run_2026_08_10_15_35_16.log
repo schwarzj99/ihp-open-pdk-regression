@@ -1,0 +1,16 @@
+10-Aug-2026 17:35:16 | INFO    | Your Klayout version is: KLayout 0.30.10 (required >= 0.30.5)
+10-Aug-2026 17:35:16 | INFO    | Running SG13G2 LVS checks on design /foss/designs/ihp-open-pdk-regression/IOPADS/layout/sg13g2_IOPadIOVdd.gds on cell sg13g2_IOPadIOVdd
+10-Aug-2026 17:35:28 | INFO    | ==============================================================================
+10-Aug-2026 17:35:28 | INFO    | Important Summary
+10-Aug-2026 17:35:28 | INFO    | +------------------+------------------------------------------------------------------------------------------+
+10-Aug-2026 17:35:29 | INFO    | | Status           | PASS                                                                                     |
+10-Aug-2026 17:35:29 | INFO    | | Mode             | COMPARE                                                                                  |
+10-Aug-2026 17:35:29 | INFO    | | Outcome          | Comparison mode: PASS (netlists match).                                                  |
+10-Aug-2026 17:35:29 | INFO    | | Layout           | sg13g2_IOPadIOVdd.gds                                                                    |
+10-Aug-2026 17:35:29 | INFO    | | Top Cell         | sg13g2_IOPadIOVdd                                                                        |
+10-Aug-2026 17:35:29 | INFO    | | Results Dir      | /foss/designs/ihp-open-pdk-regression/IOPADS/lvs_sweep/20260810_173421/sg13g2_IOPadIOVdd |
+10-Aug-2026 17:35:29 | INFO    | | Warnings         | 0                                                                                        |
+10-Aug-2026 17:35:29 | INFO    | | Errors           | 0                                                                                        |
+10-Aug-2026 17:35:29 | INFO    | | Run Time (s)     | 12.813                                                                                   |
+10-Aug-2026 17:35:29 | INFO    | +------------------+------------------------------------------------------------------------------------------+
+10-Aug-2026 17:35:29 | INFO    | ==============================================================================

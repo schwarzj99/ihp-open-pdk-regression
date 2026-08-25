@@ -1,0 +1,16 @@
+11-Aug-2026 13:56:52 | INFO    | Your Klayout version is: KLayout 0.30.10 (required >= 0.30.5)
+11-Aug-2026 13:56:52 | INFO    | Running SG13G2 LVS checks on design /foss/designs/ihp-open-pdk-regression/IOPADS/layout/sg13g2_IOPadIn.gds on cell sg13g2_IOPadIn
+11-Aug-2026 13:57:00 | INFO    | ==============================================================================
+11-Aug-2026 13:57:00 | INFO    | Important Summary
+11-Aug-2026 13:57:00 | INFO    | +------------------+---------------------------------------------------------------------------------------+
+11-Aug-2026 13:57:00 | INFO    | | Status           | PASS                                                                                  |
+11-Aug-2026 13:57:00 | INFO    | | Mode             | COMPARE                                                                               |
+11-Aug-2026 13:57:00 | INFO    | | Outcome          | Comparison mode: PASS (netlists match).                                               |
+11-Aug-2026 13:57:00 | INFO    | | Layout           | sg13g2_IOPadIn.gds                                                                    |
+11-Aug-2026 13:57:00 | INFO    | | Top Cell         | sg13g2_IOPadIn                                                                        |
+11-Aug-2026 13:57:00 | INFO    | | Results Dir      | /foss/designs/ihp-open-pdk-regression/IOPADS/lvs_sweep/20260811_135643/sg13g2_IOPadIn |
+11-Aug-2026 13:57:00 | INFO    | | Warnings         | 0                                                                                     |
+11-Aug-2026 13:57:00 | INFO    | | Errors           | 0                                                                                     |
+11-Aug-2026 13:57:00 | INFO    | | Run Time (s)     | 8.204                                                                                 |
+11-Aug-2026 13:57:00 | INFO    | +------------------+---------------------------------------------------------------------------------------+
+11-Aug-2026 13:57:00 | INFO    | ==============================================================================

@@ -1,0 +1,117 @@
+# IO pad LVS for the KLayout GUI.
+#
+# HOW TO USE
+#   1. File > Open       a pad from IOPADS/layout/, e.g. sg13g2_IOPadVss.gds
+#   2. Macros > Macro Development, open this file, press Run
+#   3. the Netlist Browser opens; green means the pad is LVS clean
+#
+# The same script serves all 15 pads: it takes the cell name from the open
+# layout and picks the matching netlist itself.
+#
+# WHY NOT JUST POINT THE LVS WINDOW AT THE NETLIST
+# The deck's defaults do not suit these pads and the failures look like real
+# design errors:
+#
+#   combine_devices            the layout merges parallel fingers into one wide
+#                              device while the netlist lists them separately.
+#                              Without it the parallel dantenna pair in
+#                              DCNDiode/DCPDiode is a device mismatch.
+#   implicit_nets              several nets are split inside a cell and joined
+#                              only by metal in the parent, so DCNDiode's
+#                              cathode arrives as two pins.
+#   ignore_top_ports_mismatch  the substrate is a pin in the netlist but stays
+#                              internal when a pad is the top cell, so the tap
+#                              comes back unmatched.
+#
+# Those three are settings, not defects.
+#
+# WHY EVERY GLOBAL BELOW IS ASSIGNED
+# KLayout's GUI keeps Ruby globals alive between macro runs. Anything left set
+# by a previous run, by another macro, or by the LVS window is still there when
+# this one starts. That is not a small problem: a stale $input makes the deck
+# read a DIFFERENT LAYOUT than the one on screen, and a stale $schematic points
+# at a netlist you never chose. Both fail in ways that look like design errors.
+# So every global the deck reads is pinned here, every run, with no ||=.
+#
+# Deck quirk worked around: sg13g2.lvs computes a default .lvsdb path and then
+# passes $report_path, a global that is never set, so nothing is saved unless
+# $report is given explicitly.
+
+# --- user overrides, read once before anything is cleared ----------------
+ip_user_iopads    = $iopads          # -rd iopads=/path/to/IOPADS
+ip_user_schematic = $force_schematic # -rd force_schematic=/path/to/x.spi
+ip_user_topcell   = $topcell         # -rd topcell=NAME   (batch only)
+ip_user_input     = $input           # -rd input=x.gds    (batch only)
+
+ip_cv  = RBA::CellView.active
+ip_gui = !ip_cv.nil? && !ip_cv.cell.nil?
+
+# In the GUI the open layout is the truth. In batch there is no cellview, so
+# -rd input / -rd topcell are used instead.
+ip_layout_file = ip_gui ? ip_cv.filename : ip_user_input
+ip_topcell     = ip_gui ? ip_cv.cell.name : ip_user_topcell
+
+if ip_layout_file.nil? || ip_layout_file.to_s.empty?
+  raise "No layout open.\n" \
+        "Open a pad from IOPADS/layout/ first, then run this script."
+end
+if ip_topcell.nil? || ip_topcell.to_s.empty?
+  raise "Could not determine the top cell; pass -rd topcell=NAME"
+end
+
+# --- locate IOPADS -------------------------------------------------------
+# Each candidate must actually contain netlist/pads_sub, so a bad guess falls
+# through instead of being used.
+ip_candidates = []
+ip_candidates << ip_user_iopads if ip_user_iopads
+ip_candidates << File.expand_path("..", File.dirname(File.expand_path(ip_layout_file)))
+ip_candidates << "/foss/designs/ihp-open-pdk-regression/IOPADS"
+
+ip_iopads = ip_candidates.find { |d| File.directory?(File.join(d, "netlist", "pads_sub")) }
+
+if ip_iopads.nil?
+  raise ["Could not locate the IOPADS directory.",
+         "  open layout : #{ip_layout_file.inspect}",
+         "  tried       : #{ip_candidates.join(', ')}",
+         "Set it with  -rd iopads=/path/to/IOPADS , or build the netlists",
+         "first with  bash <IOPADS>/verify.sh"].join("\n")
+end
+
+ip_schematic = ip_user_schematic ||
+            File.join(ip_iopads, "netlist", "pads_sub", "#{ip_topcell}.spi")
+unless File.exist?(ip_schematic)
+  raise "No netlist for '#{ip_topcell}'.\n" \
+        "  expected: #{ip_schematic}\n" \
+        "Build them with:  bash #{ip_iopads}/verify.sh"
+end
+
+# --- pin every global the deck reads -------------------------------------
+$input                     = ip_gui ? nil : ip_user_input   # nil => use the open layout
+$topcell                   = ip_topcell
+$schematic                 = ip_schematic
+$report                    = File.join(ip_iopads, "klayout_lvs", "#{ip_topcell}.lvsdb")
+$run_mode                  = "deep"
+$combine_devices           = "true"
+$ignore_top_ports_mismatch = "true"
+$implicit_nets             = "iovss,iovdd,vss,vdd,pad,cathode,anode"
+$disable_tap_extraction    = "false"
+$net_only                  = "false"
+$no_net_names              = "false"
+$spice_comments            = "false"
+$no_simplify               = "false"
+$no_series_res             = "false"
+$no_parallel_res           = "false"
+$purge                     = "false"
+$purge_nets                = "false"
+$top_lvl_pins              = "false"
+$layout_netlist            = nil
+$target_netlist            = nil
+$flatten_cells             = nil   # only exists with the lvs_patches deck patch
+$log                       = nil
+
+puts "iopad_lvs: cell      #{$topcell}"
+puts "iopad_lvs: layout    #{ip_gui ? "#{ip_layout_file} (open in GUI)" : $input}"
+puts "iopad_lvs: netlist   #{$schematic}"
+puts "iopad_lvs: result    #{$report}"
+
+# %include /foss/pdks/ihp-sg13g2/libs.tech/klayout/tech/lvs/sg13g2.lvs

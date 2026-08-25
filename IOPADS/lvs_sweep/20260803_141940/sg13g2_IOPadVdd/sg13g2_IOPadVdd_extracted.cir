@@ -1,0 +1,70 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 03/08/2026 14:21
+
+.SUBCKT sg13g2_IOPadVdd iovss iovss$1 vdd vss
+X$1 \$1 iovss vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd vdd
++ vdd vdd vdd vdd vdd vdd \$10 sg13g2_Clamp_N43N43D4R
+X$3 \$1 iovss$1 vdd \$10 vdd sg13g2_RCClampInverter
+R$1 iovss$1 \$1 ptap1 A=1997.6623p P=411.58u
+R$2 vss \$1 ptap1 A=24p P=160.6u
+.ENDS sg13g2_IOPadVdd
+
+.SUBCKT sg13g2_RCClampInverter \$1 iovss in out supply
+M$1 iovss in iovss \$1 sg13_hv_nmos L=9.5u W=126u AS=26.64p AD=23.94p
++ PS=149.92u PD=131.32u rfmode=0
+M$8 iovss in out \$1 sg13_hv_nmos L=0.5u W=108u AS=20.52p AD=23.22p PS=112.56u
++ PD=131.16u rfmode=0
+M$27 supply in out supply sg13_hv_pmos L=0.5u W=350u AS=67.55p AD=67.55p
++ PS=376.3u PD=376.3u rfmode=0
+R$77 iovss \$1 ptap1 A=69.122p P=406.6u
+.ENDS sg13g2_RCClampInverter
+
+.SUBCKT sg13g2_Clamp_N43N43D4R \$2 iovss pad pad$1 pad$2 pad$3 pad$4 pad$5
++ pad$6 pad$7 pad$8 pad$9 pad$10 pad$11 pad$12 pad$13 pad$14 pad$15 pad$16
++ pad$17 pad$18 pad$19 pad$20 pad$21 gate
+M$1 iovss gate pad \$2 sg13_hv_nmos L=0.6u W=35.2u AS=18.656p AD=16.016p
++ PS=61.28u PD=42.48u rfmode=0
+M$3 iovss gate pad$1 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$5 iovss gate pad$2 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$7 iovss gate pad$3 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$9 iovss gate pad$4 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$11 iovss gate pad$5 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$13 iovss gate pad$6 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$15 iovss gate pad$7 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$17 iovss gate pad$8 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$19 iovss gate pad$9 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$21 iovss gate pad$10 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$23 iovss gate pad$11 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$25 iovss gate pad$12 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$27 iovss gate pad$13 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$29 iovss gate pad$14 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$31 iovss gate pad$15 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$33 iovss gate pad$16 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$35 iovss gate pad$17 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$37 iovss gate pad$18 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$39 iovss gate pad$19 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$41 iovss gate pad$20 \$2 sg13_hv_nmos L=0.6u W=35.2u AS=16.016p AD=16.016p
++ PS=42.48u PD=42.48u rfmode=0
+M$43 iovss gate pad$21 \$2 sg13_hv_nmos L=0.6u W=17.6u AS=5.632p AD=13.024p
++ PS=20.16u PD=41.12u rfmode=0
+D$173 \$2 gate dantenna A=0.2304p P=1.92u m=1
+R$174 iovss \$2 ptap1 A=65.6472p P=386.16u
+.ENDS sg13g2_Clamp_N43N43D4R

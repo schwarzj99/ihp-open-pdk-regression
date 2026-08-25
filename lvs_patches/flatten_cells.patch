@@ -1,0 +1,79 @@
+diff -u -r a/run_lvs.py b/run_lvs.py
+--- a/run_lvs.py	2026-07-27 15:08:32.000000000 +0200
++++ b/run_lvs.py	2026-08-03 15:40:33.823684453 +0200
+@@ -537,6 +537,7 @@
+         "layout_netlist": os.path.abspath(layout_netlist_path) if layout_netlist_path else None,
+         "ignore_top_ports_mismatch": "true" if args.ignore_top_ports_mismatch else "false",
+         "implicit_nets": f'"{args.implicit_nets}"' if args.implicit_nets else '""',
++        "flatten_cells": f'"{args.flatten_cells}"' if args.flatten_cells else '""',
+     }
+ 
+     return switches
+@@ -781,6 +782,7 @@
+                [--disable_tap_extraction]
+                [--purge] [--purge_nets] [--ignore_top_ports_mismatch]
+                [--implicit_nets=<nets>]
++               [--flatten_cells=<cells>]
+     """
+ 
+     parser = argparse.ArgumentParser(
+@@ -847,6 +849,17 @@
+         ),
+     )
+     parser.add_argument(
++        "--flatten_cells",
++        type=str,
++        default=None,
++        help=(
++            "Comma-separated circuit names/patterns (glob) to flatten in BOTH "
++            'netlists before comparison, e.g. "sg13g2_DCNDiode,sg13g2_Clamp_*". '
++            "Use for library cells whose parallel devices are tied together only "
++            "by metal in the parent cell."
++        ),
++    )
++    parser.add_argument(
+         "--ignore_top_ports_mismatch",
+         action="store_true",
+         help="Ignore top-level port mismatches during comparison.",
+diff -u -r a/sg13g2.lvs b/sg13g2.lvs
+--- a/sg13g2.lvs	2026-07-27 15:08:32.000000000 +0200
++++ b/sg13g2.lvs	2026-08-03 15:40:33.819683988 +0200
+@@ -143,6 +143,11 @@
+ 
+ logger.info("Selected IMPLICIT_NETS option: #{IMPLICIT_NETS.empty? ? '(none)' : IMPLICIT_NETS}")
+ 
++# FLATTEN_CELLS
++FLATTEN_CELLS = ($flatten_cells || '').to_s.strip
++
++logger.info("Selected FLATTEN_CELLS option: #{FLATTEN_CELLS.empty? ? '(none)' : FLATTEN_CELLS}")
++
+ # TOP_LVL_PINS
+ TOP_LVL_PINS = bool_check?($top_lvl_pins)
+ 
+@@ -482,6 +487,26 @@
+   logger.info('Starting SG13G2 LVS Alignment')
+   align
+ 
++  #=== FLATTEN CELLS ===
++  # Some library cells tie their parallel devices together with metal drawn in
++  # the PARENT cell rather than inside the cell itself. Extraction then pushes
++  # every finger out as its own pin (pad, pad$1 ... pad$21) while the schematic
++  # models that net as internal to the cell, so those circuits can never match.
++  # Flattening them on BOTH sides removes the disagreement and leaves the rest
++  # of the comparison intact.
++  if !FLATTEN_CELLS.empty?
++    cells_to_flatten = FLATTEN_CELLS.split(',').map(&:strip).reject(&:empty?)
++    if cells_to_flatten.empty?
++      logger.info('WARNING : FLATTEN_CELLS was set but no valid entries were found after parsing.')
++    else
++      logger.info("Flattening circuits in both netlists: #{cells_to_flatten.join(', ')}")
++      cells_to_flatten.each do |cell_pattern|
++        netlist.flatten_circuit(cell_pattern)
++        schematic.flatten_circuit(cell_pattern)
++      end
++    end
++  end
++
+   #=== NETLIST OPTIONS ===
+   logger.info('Starting SG13G2 LVS Simplification')
+   apply_netlist_options.call(netlist, 'layout_netlist')

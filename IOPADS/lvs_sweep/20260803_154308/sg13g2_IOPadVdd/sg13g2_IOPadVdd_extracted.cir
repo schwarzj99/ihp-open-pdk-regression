@@ -1,0 +1,13 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 03/08/2026 15:43
+
+.SUBCKT sg13g2_IOPadVdd iovss|vss vdd
+M$1 iovss|vss \$9 vdd iovss|vss sg13_hv_nmos L=0.6u W=756.8u AS=344.608p
++ AD=349.36p PS=931.04u PD=933.2u rfmode=0
+D$173 iovss|vss \$9 dantenna A=0.2304p P=1.92u m=1
+M$174 iovss|vss vdd iovss|vss iovss|vss sg13_hv_nmos L=9.5u W=126u AS=26.64p
++ AD=23.94p PS=149.92u PD=131.32u rfmode=0
+M$181 iovss|vss vdd \$9 iovss|vss sg13_hv_nmos L=0.5u W=108u AS=20.52p
++ AD=23.22p PS=112.56u PD=131.16u rfmode=0
+M$200 vdd vdd \$9 vdd sg13_hv_pmos L=0.5u W=350u AS=67.55p AD=67.55p PS=376.3u
++ PD=376.3u rfmode=0
+.ENDS sg13g2_IOPadVdd

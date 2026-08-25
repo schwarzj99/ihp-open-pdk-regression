@@ -1,0 +1,116 @@
+** sch_path: /foss/pdks/ihp-sg13g2/libs.tech/xschem/sg13g2_tests/sg13g2_IOPad_tb.sch
+.subckt sg13g2_IOPad_tb
+
+V1 VDD3V3 VSS3V3 3.3
+V2 VDD1V5 VSS1V5 1.5
+V3 VSS3V3 GND -0.05
+V4 pad1 GND 1.5
+V5 p2c1_pad GND 3.3
+R1 p2c1 GND 100k
+R4 c2p3_pad GND 100k
+V7 c2p3 GND 1.5
+V9 VSS1V5 GND 0.05
+R6 c2p2_pad GND 100k
+V10 c2p2 GND 1.5
+R7 c2p1_pad GND 100k
+V11 c2p1 GND 1.5
+RR9 GND sub! ptap1 A=6.084e-13 P=3.12e-06
+x1 VSS1V5 VDD1V5 VSS3V3 VDD3V3 pad1 padres1 sg13g2_IOPadAnalog
+x2 VSS1V5 VDD1V5 VSS3V3 VDD3V3 p2c1 p2c1_pad sg13g2_IOPadIn
+x3 VSS1V5 VDD1V5 VSS3V3 VDD3V3 sg13g2_IOPadIOVdd
+x4 VSS1V5 VDD1V5 VSS3V3 VDD3V3 sg13g2_IOPadIOVss
+x5 VSS1V5 VDD1V5 VSS3V3 VDD3V3 c2p3 c2p3_pad sg13g2_IOPadOut4mA
+x6 VSS1V5 VDD1V5 VSS3V3 VDD3V3 sg13g2_IOPadVdd
+x7 VSS1V5 VDD1V5 VSS3V3 VDD3V3 sg13g2_IOPadVss
+x8 VSS1V5 VDD1V5 VSS3V3 VDD3V3 c2p2 c2p2_pad sg13g2_IOPadOut16mA
+x9 VSS1V5 VDD1V5 VSS3V3 VDD3V3 c2p1 c2p1_pad sg13g2_IOPadOut30mA
+R2 padres1 GND 100k
+R3 pad1 GND 100k
+x10 VSS1V5 VDD1V5 VSS3V3 VDD3V3 p2c7 c2p7 c2p7 c2p7_pad sg13g2_IOPadInOut30mA
+x11 VSS1V5 VDD1V5 VSS3V3 VDD3V3 p2c8 c2p8 c2p8 c2p8_pad sg13g2_IOPadInOut16mA
+x12 VSS1V5 VDD1V5 VSS3V3 VDD3V3 p2c9 c2p9 c2p9 c2p9_pad sg13g2_IOPadInOut4mA
+x13 VSS1V5 VDD1V5 VSS3V3 VDD3V3 c2p4 c2p4 c2p4_pad sg13g2_IOPadTriOut30mA
+x14 VSS1V5 VDD1V5 VSS3V3 VDD3V3 c2p5 c2p5 c2p5_pad sg13g2_IOPadTriOut16mA
+x15 VSS1V5 VDD1V5 VSS3V3 VDD3V3 c2p6 c2p6 c2p6_pad sg13g2_IOPadTriOut4mA
+V6 c2p4 GND 1.5
+V8 c2p5 GND 1.5
+V12 c2p6 GND 1.5
+V13 c2p7 GND 1.5
+V14 c2p8 GND 1.5
+V15 c2p9 GND 1.5
+R5 c2p4_pad GND 100k
+R8 c2p5_pad GND 100k
+R10 c2p6_pad GND 100k
+R11 c2p7_pad GND 100k
+R12 c2p8_pad GND 100k
+R13 c2p9_pad GND 100k
+R14 p2c7 GND 100k
+R15 p2c8 GND 100k
+R16 p2c9 GND 100k
+**** begin user architecture code
+
+
+.param temp=27
+.options savecurrents klu method=gear reltol=1e-3 abstol=1e-15 gmin=1e-15 chgtol=1e-11
+.control
+
+set nostepsizelimit
+
+save all
+
+* Operating Point Analysis
+op
+remzerovec
+write sg13g2_IOPad_tb.raw
+set appendwrite
+
+* Transient Analysis
+tran 10p 1n
+write sg13g2_IOPad_tb.raw
+
+* Plotting
+plot VDD3V3 VSS3V3 VDD1V5 VSS1V5
+
+* Analog
+plot pad1 padres1
+
+* In
+plot p2c1 p2c1_pad
+
+* InOut
+plot c2p9 c2p9_pad p2c9
+plot c2p8 c2p8_pad p2c8
+plot c2p7 c2p7_pad p2c7
+
+* TriOut
+plot c2p6 c2p6_pad
+plot c2p5 c2p5_pad
+plot c2p4 c2p4_pad
+
+* Out
+plot c2p3 c2p3_pad
+plot c2p2 c2p2_pad
+plot c2p1 c2p1_pad
+
+*quit
+.endc
+
+
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+.lib cornerCAP.lib cap_typ
+.lib cornerDIO.lib dio_tt
+
+
+
+.include diodes.lib
+.include /foss/designs/ihp-open-pdk-regression/IOPADS/netlist/sg13g2_io_upstream.spi
+
+
+**** end user architecture code
+.ends
+.GLOBAL GND
+.GLOBAL sub!
